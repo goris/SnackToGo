@@ -1,11 +1,12 @@
 import java.net.*;
+
 class DatosSocket{
-	InetAddres ipLocal=null;
-	InetAddres ipCliente=null;
+	InetAddress ipLocal=null;
+	InetAddress ipCliente=null;
 	int puertoLocal=0;
 	int puertoCliente=0;
 	public DatosSocket(Socket socket){
-		ipLocal=socket.getLocalAddres();
+		ipLocal=socket.getLocalAddress();
 		ipCliente=socket.getInetAddress();
 		puertoLocal=socket.getLocalPort();
 		puertoCliente=socket.getPort();
