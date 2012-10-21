@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nombreProd;
 @property (weak, nonatomic) IBOutlet UILabel *descripcion;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
+@property (weak, nonatomic) IBOutlet UILabel *totalAPagar;
 
 
 @end

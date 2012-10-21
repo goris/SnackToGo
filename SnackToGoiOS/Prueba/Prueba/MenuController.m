@@ -14,7 +14,7 @@
 
 @implementation MenuController
 
-
+double total;
 
 - (void)viewDidLoad
 {
@@ -127,10 +127,30 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
+        // View is disappearing because a new view controller was pushed onto the stack
+        NSLog(@"New view controller was pushed");
+    } else if ([viewControllers indexOfObject:self] == NSNotFound) {
+        // View is disappearing because it was popped from the stack
+        NSLog(@"View controller was popped");
+        //UIViewController *vc = [viewControllers objectAtIndex:viewControllers.count-2];
+        //[[self navigationController] popToViewController:vc animated:YES];
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
+}
+
 
 - (IBAction)actualizaCantidadPedida:(UIStepper *)sender {
      NSMutableDictionary *dict=[_jsonArray objectAtIndex:[[_tablaMenu indexPathForSelectedRow] row]];
+    if ([[dict objectForKey:@"cantidad"] doubleValue]>sender.value) {
+        total-=[((NSNumber *)[dict objectForKey:@"precio"]) doubleValue];
+    } else {
+        total+=[((NSNumber *)[dict objectForKey:@"precio"]) doubleValue];
+    }
     _noItem.text=[[NSNumber numberWithDouble:sender.value] stringValue];
+    _totalAPagar.text=[[NSNumber numberWithDouble:total] stringValue];
     [dict setObject:_noItem.text forKey:@"cantidad"];
 }
 @end

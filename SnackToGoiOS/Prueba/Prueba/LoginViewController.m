@@ -55,4 +55,8 @@
 - (IBAction)goBack:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)quitarTeclado:(id)sender {
+    [_usuario resignFirstResponder];
+    [_contrasena resignFirstResponder];
+}
 @end

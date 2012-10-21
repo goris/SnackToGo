@@ -12,5 +12,8 @@
 
 - (IBAction)goBack:(UIBarButtonItem *)sender;
 
+@property (weak, nonatomic) IBOutlet UITextField *usuario;
+@property (weak, nonatomic) IBOutlet UITextField *contrasena;
+- (IBAction)quitarTeclado:(id)sender;
 
 @end
