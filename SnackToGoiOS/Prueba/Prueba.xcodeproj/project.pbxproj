@@ -19,6 +19,10 @@
 		526774911633523F00219098 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5267748F1633523F00219098 /* MainStoryboard.storyboard */; };
 		526774941633523F00219098 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526774931633523F00219098 /* ViewController.m */; };
 		5267749F163364F100219098 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5267749E163364F100219098 /* LoginViewController.m */; };
+		526774A21633A4CB00219098 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526774A11633A4CB00219098 /* MenuViewController.m */; };
+		526774AC1633AF3600219098 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 526774AB1633AF3600219098 /* GCDAsyncSocket.m */; };
+		526774AE1633AF9700219098 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 526774AD1633AF9700219098 /* CFNetwork.framework */; };
+		526774B01633B0C000219098 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 526774AF1633B0C000219098 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,12 @@
 		526774931633523F00219098 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5267749D163364F100219098 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5267749E163364F100219098 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		526774A01633A4CB00219098 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		526774A11633A4CB00219098 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		526774AA1633AF3600219098 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		526774AB1633AF3600219098 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		526774AD1633AF9700219098 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		526774AF1633B0C000219098 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				526774B01633B0C000219098 /* Security.framework in Frameworks */,
+				526774AE1633AF9700219098 /* CFNetwork.framework in Frameworks */,
 				526774781633523F00219098 /* UIKit.framework in Frameworks */,
 				5267747A1633523F00219098 /* Foundation.framework in Frameworks */,
 				5267747C1633523F00219098 /* CoreGraphics.framework in Frameworks */,
@@ -59,6 +71,8 @@
 		526774681633523F00219098 = {
 			isa = PBXGroup;
 			children = (
+				526774AF1633B0C000219098 /* Security.framework */,
+				526774AD1633AF9700219098 /* CFNetwork.framework */,
 				5267747D1633523F00219098 /* Prueba */,
 				526774761633523F00219098 /* Frameworks */,
 				526774741633523F00219098 /* Products */,
@@ -86,6 +100,8 @@
 		5267747D1633523F00219098 /* Prueba */ = {
 			isa = PBXGroup;
 			children = (
+				526774AA1633AF3600219098 /* GCDAsyncSocket.h */,
+				526774AB1633AF3600219098 /* GCDAsyncSocket.m */,
 				526774861633523F00219098 /* AppDelegate.h */,
 				526774871633523F00219098 /* AppDelegate.m */,
 				5267748F1633523F00219098 /* MainStoryboard.storyboard */,
@@ -94,6 +110,8 @@
 				5267747E1633523F00219098 /* Supporting Files */,
 				5267749D163364F100219098 /* LoginViewController.h */,
 				5267749E163364F100219098 /* LoginViewController.m */,
+				526774A01633A4CB00219098 /* MenuViewController.h */,
+				526774A11633A4CB00219098 /* MenuViewController.m */,
 			);
 			path = Prueba;
 			sourceTree = "<group>";
@@ -182,6 +200,8 @@
 				526774881633523F00219098 /* AppDelegate.m in Sources */,
 				526774941633523F00219098 /* ViewController.m in Sources */,
 				5267749F163364F100219098 /* LoginViewController.m in Sources */,
+				526774A21633A4CB00219098 /* MenuViewController.m in Sources */,
+				526774AC1633AF3600219098 /* GCDAsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
