@@ -54,6 +54,6 @@
         android:layout_below="@+id/editText1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
-        android:text="Login" />
+        android:text="Iniciar sesión" />
 
 </RelativeLayout>
