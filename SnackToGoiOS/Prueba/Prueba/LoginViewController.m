@@ -32,8 +32,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    //self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+                                             
 }
 
+/*-(void)goBack
+{
+        UIViewController *ctrl = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 2];
+        [self.navigationController popToViewController:ctrl animated:YES];
+}*/
+                                             
 -(void)viewWillDisappear:(BOOL)animated{
     
 }

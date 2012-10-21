@@ -12,8 +12,10 @@
 
 #import "GCDAsyncSocket.h"
 #import "MenuViewController.h"
+#import "SBJson.h"
 
 @interface MenuViewController ()
+
 
 @end
 
@@ -21,11 +23,15 @@
 
 GCDAsyncSocket *asyncSocket;
 
+
+@synthesize jsonArray = _jsonArray;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        //jsonArray = [[NSArray alloc] init];
+        
     }
     return self;
 }
@@ -33,37 +39,6 @@ GCDAsyncSocket *asyncSocket;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-	
-	asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-    NSString *host = HOST;
-    uint16_t port = PORT;
-    
-    //DDLogInfo(@"Connecting to \"%@\" on port %hu...", host, port);
-    //self.viewController.label.text = @"Connecting...";
-    NSLog(@"Connecting to \"%@\" on port %hu...", host, port);
-    NSLog(@"Connecting...");
-    NSError *error = nil;
-    
-    if (![asyncSocket connectToHost:host onPort:port error:&error])
-    {
-        //DDLogError(@"Error connecting: %@", error);
-        NSLog(@"Error connecting: %@", error);
-        //self.viewController.label.text = @"Oops";
-    } else {
-        //NSMutableData *data;
-        NSString *mensaje = @"articulos\n";
-        //data = (NSMutableData *)[mensaje dataUsingEncoding:NSUTF8StringEncoding];
-        //[data appendData:[GCDAsyncSocket CRLFData]];
-        NSData *aqui = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
-        [asyncSocket writeData:[mensaje dataUsingEncoding:NSUTF8StringEncoding] withTimeout:10 tag:1];
-        //[asyncSocket readDataWithTimeout:20 tag:1];
-        //[asyncSocket readDataWithTimeout:10 tag:1];
-        //[asyncSocket readStream];
-        [asyncSocket readDataToData:aqui withTimeout:20 tag:1];
-        //asyncSocket disconnectAfterReadingAndWriting];
-        //[asyncSocket ]
-    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -71,111 +46,8 @@ GCDAsyncSocket *asyncSocket;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
-{
-	//DDLogInfo(@"socket:%p didConnectToHost:%@ port:%hu", sock, host, port);
-	//self.viewController.label.text = @"Connected";
-	NSLog(@"Connected");
-    //	DDLogInfo(@"localHost :%@ port:%hu", [sock localHost], [sock localPort]);
-	
-#if USE_SECURE_CONNECTION
-	{
-		// Connected to secure server (HTTPS)
-        
-#if ENABLE_BACKGROUNDING && !TARGET_IPHONE_SIMULATOR
-		{
-			// Backgrounding doesn't seem to be supported on the simulator yet
-			
-			[sock performBlock:^{
-				if ([sock enableBackgroundingOnSocket])
-					//DDLogInfo(@"Enabled backgrounding on socket");
-				else
-					//DDLogWarn(@"Enabling backgrounding failed!");
-			}];
-		}
-#endif
-		
-		// Configure SSL/TLS settings
-		NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
-		
-		// If you simply want to ensure that the remote host's certificate is valid,
-		// then you can use an empty dictionary.
-		
-		// If you know the name of the remote host, then you should specify the name here.
-		//
-		// NOTE:
-		// You should understand the security implications if you do not specify the peer name.
-		// Please see the documentation for the startTLS method in GCDAsyncSocket.h for a full discussion.
-		
-		[settings setObject:@"10.20.98.87"
-					 forKey:(NSString *)kCFStreamSSLPeerName];
-		
-		// To connect to a test server, with a self-signed certificate, use settings similar to this:
-		
-        //	// Allow expired certificates
-        //	[settings setObject:[NSNumber numberWithBool:YES]
-        //				 forKey:(NSString *)kCFStreamSSLAllowsExpiredCertificates];
-        //
-        //	// Allow self-signed certificates
-        //	[settings setObject:[NSNumber numberWithBool:YES]
-        //				 forKey:(NSString *)kCFStreamSSLAllowsAnyRoot];
-        //
-        //	// In fact, don't even validate the certificate chain
-        //	[settings setObject:[NSNumber numberWithBool:NO]
-        //				 forKey:(NSString *)kCFStreamSSLValidatesCertificateChain];
-		
-		DDLogInfo(@"Starting TLS with settings:\n%@", settings);
-		NSLog(@"Starting TLS with settings:\n%@", settings);
-		[sock startTLS:settings];
-		
-		// You can also pass nil to the startTLS method, which is the same as passing an empty dictionary.
-		// Again, you should understand the security implications of doing so.
-		// Please see the documentation for the startTLS method in GCDAsyncSocket.h for a full discussion.
-		
-	}
-#else
-	{
-		// Connected to normal server (HTTP)
-		
-#if ENABLE_BACKGROUNDING && !TARGET_IPHONE_SIMULATOR
-		{
-			// Backgrounding doesn't seem to be supported on the simulator yet
-			
-			[sock performBlock:^{
-				//if ([sock enableBackgroundingOnSocket])
-					//DDLogInfo(@"Enabled backgrounding on socket");
-				//else
-					//DDLogWarn(@"Enabling backgrounding failed!");
-			}];
-		}
-#endif
-	}
-#endif
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-	//DDLogInfo(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
-    NSLog(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-	//DDLogInfo(@"socket:%p didReadData:withTag:%ld", sock, tag);
-	NSLog(@"socket:%p didReadData:withTag:%ld", sock, tag);
-	NSString *jsonResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	
-	//DDLogInfo(@"HTTP Response:\n%@", httpResponse);
-    NSLog(@"JSON Response:\n%@", jsonResponse);
-	
-}
-
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-	//DDLogInfo(@"socketDidDisconnect:%p withError: %@", sock, err);
-	//self.viewController.label.text = @"Disconnected";
-    NSLog(@"Disconnected");
-    NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);
+-(void)viewWillAppear:(BOOL)animated{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -190,21 +62,29 @@ GCDAsyncSocket *asyncSocket;
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return _jsonArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //UITableViewCell *cell;
+    if (cell==nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
     
+    NSDictionary *jobj = [_jsonArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [jobj objectForKey:@"nombre"];
+    cell.detailTextLabel.text = [((NSNumber *)[jobj objectForKey:@"precio"]) stringValue];
     // Configure the cell...
     
     return cell;
@@ -248,6 +128,19 @@ GCDAsyncSocket *asyncSocket;
     return YES;
 }
 */
+- (void)viewWillDisappear:(BOOL)animated {
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
+        // View is disappearing because a new view controller was pushed onto the stack
+        NSLog(@"New view controller was pushed");
+    } else if ([viewControllers indexOfObject:self] == NSNotFound) {
+        // View is disappearing because it was popped from the stack
+        NSLog(@"View controller was popped");
+        //UIViewController *vc = [viewControllers objectAtIndex:viewControllers.count-2];
+        //[[self navigationController] popToViewController:vc animated:YES];
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark - Table view delegate
 
@@ -262,4 +155,8 @@ GCDAsyncSocket *asyncSocket;
      */
 }
 
+- (void)viewDidUnload {
+    [self setTablaMenu:nil];
+    [super viewDidUnload];
+}
 @end

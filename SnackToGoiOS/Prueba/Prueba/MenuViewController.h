@@ -12,4 +12,7 @@
 
 @interface MenuViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UITableView *tablaMenu;
+@property (strong, nonatomic) NSMutableArray *jsonArray;
+
 @end
