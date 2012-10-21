@@ -22,7 +22,7 @@
 		        android:id="@+id/button1"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/ordenar" />
+		        android:text="Ordenar" />
 
     		<TextView
     		    android:id="@+id/textView1"
@@ -31,8 +31,8 @@
     		    android:layout_alignBaseline="@+id/button1"
     		    android:layout_alignBottom="@+id/button1"
     		    android:layout_alignParentRight="true"
-    		    android:layout_marginRight="24dp"
-    		    android:text="@string/total" />
+    		    android:layout_marginRight="5dip"
+    		    android:text="Total" />
     		
 	    </RelativeLayout>
     </LinearLayout>
