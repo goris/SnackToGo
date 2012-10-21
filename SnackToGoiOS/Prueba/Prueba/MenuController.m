@@ -1,53 +1,33 @@
 //
-//  MenuViewController.m
+//  MenuController.m
 //  Prueba
 //
-//  Created by Compean on 10/20/12.
+//  Created by Compean on 10/21/12.
 //  Copyright (c) 2012 Compean. All rights reserved.
 //
 
-#define HOST @"10.20.98.87";
-#define PORT 6666
-#define ENABLE_BACKGROUNDING  0
+#import "MenuController.h"
 
-#import "GCDAsyncSocket.h"
-#import "MenuViewController.h"
-#import "SBJson.h"
-
-@interface MenuViewController ()
-
+@interface MenuController ()
 
 @end
 
-@implementation MenuViewController
-
-GCDAsyncSocket *asyncSocket;
+@implementation MenuController
 
 
-@synthesize jsonArray = _jsonArray;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        //jsonArray = [[NSArray alloc] init];
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    for (int i =0; i < _jsonArray.count; i++) {
+        NSMutableDictionary *jobj = [_jsonArray objectAtIndex:i];
+        [jobj setObject:@"0" forKey:@"cantidad"];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,6 +36,7 @@ GCDAsyncSocket *asyncSocket;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -72,7 +53,7 @@ GCDAsyncSocket *asyncSocket;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = @"Cell";
+    NSString *CellIdentifier = @"MyID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     //UITableViewCell *cell;
     if (cell==nil) {
@@ -87,7 +68,6 @@ GCDAsyncSocket *asyncSocket;
     
     return cell;
 }
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,19 +106,6 @@ GCDAsyncSocket *asyncSocket;
     return YES;
 }
 */
-- (void)viewWillDisappear:(BOOL)animated {
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
-        // View is disappearing because a new view controller was pushed onto the stack
-        NSLog(@"New view controller was pushed");
-    } else if ([viewControllers indexOfObject:self] == NSNotFound) {
-        // View is disappearing because it was popped from the stack
-        NSLog(@"View controller was popped");
-        //UIViewController *vc = [viewControllers objectAtIndex:viewControllers.count-2];
-        //[[self navigationController] popToViewController:vc animated:YES];
-        [[self navigationController] popViewControllerAnimated:YES];
-    }
-}
 
 #pragma mark - Table view delegate
 
@@ -151,11 +118,19 @@ GCDAsyncSocket *asyncSocket;
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    //[tableView
+    NSMutableDictionary *jobj = [_jsonArray objectAtIndex:indexPath.row];
+    
+    _nombreProd.text=[jobj objectForKey:@"nombre"];
+    _noItem.text=[jobj objectForKey:@"cantidad"];
+    _stepper.value=[_noItem.text doubleValue];
+    _descripcion.text=[jobj objectForKey:@"descripcion"];
+    
 }
 
-- (void)viewDidUnload {
-    [self setTablaMenu:nil];
-    [super viewDidUnload];
+
+- (IBAction)actualizaCantidadPedida:(UIStepper *)sender {
+     NSMutableDictionary *dict=[_jsonArray objectAtIndex:[[_tablaMenu indexPathForSelectedRow] row]];
+    _noItem.text=[[NSNumber numberWithDouble:sender.value] stringValue];
+    [dict setObject:_noItem.text forKey:@"cantidad"];
 }
 @end

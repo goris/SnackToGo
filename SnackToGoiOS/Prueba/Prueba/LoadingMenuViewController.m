@@ -199,7 +199,7 @@ GCDAsyncSocket *asyncSocket;
     //[self performSegueWithIdentifier:@"loadMenuSegue" sender:self];
     //[[self navigationController] performSegueWithIdentifier:@"loadMenuSegue" sender:self];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
-    MenuViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
+    MenuViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"MenuController"];
     [lvc setJsonArray:_jsonArray];
     [self.navigationController pushViewController:lvc animated:NO];
 }
