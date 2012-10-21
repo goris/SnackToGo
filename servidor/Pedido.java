@@ -5,7 +5,9 @@ class Pedido{
 	private int id=0;
 	private String estado=null;
 	private Date entrega=null;
-	
+	public Pedido(){
+		
+	}
 	public Pedido(Date entrega,String usuario,Date fecha,String estado,int id){
 		usuario=this.usuario;
 		fecha=this.fecha;
