@@ -4,7 +4,9 @@ import java.io.*;
 import java.net.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Locale;
 
 import com.google.gson.Gson;
@@ -13,12 +15,16 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class SelectPedido extends ListActivity {
     static final String KEY_ARTICULO = "articulo"; // parent node
@@ -53,6 +59,26 @@ public class SelectPedido extends ListActivity {
 		}
 		articulos = (new Gson()).fromJson(json, Articulo[].class);
 		updatePrecios();
+		final SelectPedido este=this;
+        ((Button)findViewById(R.id.button1)).setOnClickListener(new View.OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		LinkedList<Articulo> pedido=new LinkedList();
+        		for(Articulo articulo : articulos){
+        			if(articulo.cantidad>0){
+        				Articulo temp=new Articulo();
+        				temp.id=articulo.id;
+        				temp.nombre=articulo.nombre;
+        	        	temp.cantidad=articulo.cantidad;
+        	        	temp.precio=articulo.precio;
+        	        	pedido.add(temp);
+        			}
+        		}
+        		Intent k = new Intent(SelectPedido.this, ConfirmarPedido.class);
+        		k.putExtra("pedido", (new Gson()).toJson(pedido));
+        		startActivity(k);
+            	}
+        	  });
     }
     
     @Override
@@ -98,6 +124,7 @@ public class SelectPedido extends ListActivity {
         	map.put(KEY_PRECIO,  (NumberFormat.getCurrencyInstance(Locale.US)).format(articulo.precio));
         	map.put(KEY_CANTIDAD,  "x"+articulo.cantidad);
         	map.put(KEY_TOTAL,  (NumberFormat.getCurrencyInstance(Locale.US)).format(articulo.precio*articulo.cantidad));
+        	map.put(KEY_THUMB_URL,  "http://10.20.98.87:8887/"+articulo.id+".jpg");
         	listaArticulos.add(map);
         	sum+=articulo.precio*articulo.cantidad;
         }
