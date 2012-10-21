@@ -18,7 +18,7 @@
 		5267748E1633523F00219098 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5267748D1633523F00219098 /* Default-568h@2x.png */; };
 		526774911633523F00219098 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5267748F1633523F00219098 /* MainStoryboard.storyboard */; };
 		526774941633523F00219098 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526774931633523F00219098 /* ViewController.m */; };
-		5267749C1633530D00219098 /* masPrueba.m in Sources */ = {isa = PBXBuildFile; fileRef = 5267749B1633530D00219098 /* masPrueba.m */; };
+		5267749F163364F100219098 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5267749E163364F100219098 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +38,8 @@
 		526774901633523F00219098 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		526774921633523F00219098 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		526774931633523F00219098 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		5267749A1633530D00219098 /* masPrueba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = masPrueba.h; sourceTree = "<group>"; };
-		5267749B1633530D00219098 /* masPrueba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = masPrueba.m; sourceTree = "<group>"; };
+		5267749D163364F100219098 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5267749E163364F100219098 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +92,8 @@
 				526774921633523F00219098 /* ViewController.h */,
 				526774931633523F00219098 /* ViewController.m */,
 				5267747E1633523F00219098 /* Supporting Files */,
-				5267749A1633530D00219098 /* masPrueba.h */,
-				5267749B1633530D00219098 /* masPrueba.m */,
+				5267749D163364F100219098 /* LoginViewController.h */,
+				5267749E163364F100219098 /* LoginViewController.m */,
 			);
 			path = Prueba;
 			sourceTree = "<group>";
@@ -181,7 +181,7 @@
 				526774841633523F00219098 /* main.m in Sources */,
 				526774881633523F00219098 /* AppDelegate.m in Sources */,
 				526774941633523F00219098 /* ViewController.m in Sources */,
-				5267749C1633530D00219098 /* masPrueba.m in Sources */,
+				5267749F163364F100219098 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +263,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Prueba/Prueba-Prefix.pch";
 				INFOPLIST_FILE = "Prueba/Prueba-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -274,6 +275,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Prueba/Prueba-Prefix.pch";
 				INFOPLIST_FILE = "Prueba/Prueba-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
