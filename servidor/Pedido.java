@@ -1,6 +1,6 @@
 import java.util.Date;
 class Pedido{
-	private String usuario=0;
+	private String usuario=null;
 	private Date fecha=null;
 	private int id=0;
 	private String estado=null;

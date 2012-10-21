@@ -4,8 +4,14 @@ import java.net.*;
 class Atender extends Thread {
 	private BufferedReader entrada;
 	private DataOutputStream salida;
+	private String orden;
 	private Socket cliente=null;
 	DatosSocket dSocket=null;
+	private String nombre;
+	private String articulo;
+	private String cantidad;
+	private String fechaEntrega;
+	private String json;
 	public Atender(Socket cliente){
 		this.cliente=cliente;//creo un nuevo cliente 
 		dSocket=new DatosSocket(cliente);//obtengo todos los datos del Cliente
@@ -18,6 +24,17 @@ class Atender extends Thread {
 		/*
 			aqui es donde ocurrira la magia de platicar entre cliente y servidor 
 		*/
+		do{
+			orden = entrada.readLine();
+			System.out.println(orden);
+			if(orden.equals("articulos")){
+				System.out.println("en articulos");
+			}
+			//nombre=json.getString("mail");
+			System.out.println("es de "+dSocket.toString());
+     		salida.writeInt(orden.length());
+		}while(orden.length()!=0);
+		
 		Pedido pedido=null;
 		boolean actualizar=BaseDatos.actualizar(pedido);
 	}catch(SocketException se)	{
